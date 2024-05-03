@@ -9,107 +9,99 @@
 </head>
 
 <body>
-  <div id="admin_body_div">
+  <div id="admin_body_div"> 
     <div class="admin_container" id="admin_left_container">
-
-    <h2>Ürün İşlemleri</h2>
-      <ul>
-        <li><a href="../urun_islem/urun_gor.php">Ürün Görüntüleme</a></li>
-        <li><a href="../urun_islem/urun_degis.php">Ürün Düzenleme</a></li>
-        <li><a href="../urun_islem/urun_ekle.php">Ürün Ekleme</a></li>
-        <li><a href="../urun_islem/urun_sil.php">Ürün Silme</a></li>
-      </ul>
-
-      <h2>Depo İşlemleri</h2>
-      <ul>
-        <li><a href="../depo_islem/depo_gor">Depo Görüntüleme</a></li>
-        <li><a href="../depo_islem/depo_degis">Depo Düzenleme</a></li>
-        <li><a href="../depo_islem/depo_ekle">Depo Ekleme</a></li>
-        <li><a href="../depo_islem/depo_sil">Depo Silme</a></li>
-      </ul>
-
-      <h2>Bayi İşlemleri</h2>
-      <ul>
-        <li><a href="bayi_gor">Bayi Görüntüleme</a></li>
-        <li><a href="bayi_degis">Bayi Düzenleme</a></li>
-        <li><a href="bayi_ekle">Bayi Ekleme</a></li>
-        <li><a href="bayi_sil">Bayi Silme</a></li>
-        <li><a href="bayi_gecmis_islem">Geçmiş İşlemler</a></li>
-      </ul>
-
-      <h2>Hesap İşlemleri</h2>
-      <ul>
-        <li><a href="../hesap_islem/hesap_gor">Hesap Bilgileri Görüntüleme</a></li>
-        <li><a href="../hesap_islem/hesap_degis">Hesap Değiştir</a></li>
-        <li><a href="../hesap_islem/hesap_ekle">Hesap Ekleme</a></li>
-        <li><a href="../hesap_islem/hesap_sil">Hesap Silme</a></li>
-        <li><a href="../hesap_islem/hesap_destek">Destek</a></li>
-        <li><a href="../hesap_islem/hesap_cikis">Çıkış Yap</a></li>
-      </ul>
-
-
-
-
-
+      <?php include("../left_bar.php"); ?>
     </div>
     <!--Sağ tarafta bulunan gövdenin özellikleri içeriği aşağıda verilmiştir.-->
-    <?php include ("../../../contact/take_all_data.php");
-    ?>
+    <?php include ("../../../contact/contact.php"); ?>
     <div id="admin_right_container" class="admin_container">
-    <div id="start_div">
-          LÜTFEN SOL TARAFTAKİ MENÜYÜ KULLANINIZ....
-        </div>
       <div class="admin_right_products_container">
-        
-        <!--Buraya Ürün Bulmak için kodlar eklendi-->
-        <div id="products_search">
-          <h1>ÜRÜN İŞLEMLERİ</h1>
-          <form id="search_info_form" method="POST">
-            <input type="text" name="search_id" id="search_id" placeholder="Ürün ID">
-            <input type="text" name="search_name" id="search_name" placeholder="Ürün Adı">
-            <button type="submit" id="search_info_button">Ürünü Ara</button>
+
+        <!--Buraya Bayi Bulmak için kodlar eklendi-->
+        <div id="dealers_search">
+          <h1>BAYİ İŞLEMLERİ</h1>
+          <form id="dealer_info_form" method="POST">
+            <input type="text" name="search_id" id="search_id" placeholder="Bayi ID">
+            <input type="text" name="search_city" id="search_city" placeholder="Bayi Şehri">
+            <button type="submit" id="dealer_info_button">Bayileri Bul</button>
           </form>
         </div>
-        <!--Ürün özellikleri görüntüleme ve id isim ile bulma-->
-        <div id="products_info_divs">
-          <h2>ÜRÜN BİLGİLERİNİ GÖRÜNTÜLE</h2>
-          <?php
-          $search_id = isset($_POST['search_id']) ? $_POST['search_id'] : '';
-          $search_name = isset($_POST['search_name']) ? $_POST['search_name'] : '';
+        <!--Bayi bilgilerini görüntüleme-->
 
-          foreach ($all_data as $data) {
-            $i = $data["id"];
-            $display_style = 'none'; // Başlangıçta tüm divler gizlenecek
-            if (empty($search_id) && empty($search_name)) {
-              $display_style = 'block'; // Eğer inputlardan gelen değerler yoksa, tüm divler görünür olacak
-            } else {
-              if ($search_id == $data["id"] || $search_name == $data["isim"]) {
-                $display_style = 'block'; // Aranan ID ile eşleşen divler görünür hale gelecek
-              }
+        <div id="dealer_info_divs">
+          <h2>BAYİ BİLGİLERİNİ GÖRÜNTÜLE</h2>
+          <div class="card-container">
+            <?php
+            // Bayi bilgilerini alma
+            $query_dealer_stock = mysqli_query($connection, 'SELECT * FROM bayi_stok');
+            $query_dealer = mysqli_query($connection, 'SELECT * FROM bayi');
+            $product_types = array(); // Ürün tiplerini tutacak dizi
+            $all_data_dealer_stock = array();
+            // Tüm bayi stoklarını al
+            while ($take = mysqli_fetch_array($query_dealer_stock)) {
+              $data = [
+                "dealer_id" => $take["bayi_id"],
+                "phone_id" => $take["telefon_id"],
+                "stock" => $take["stok"]
+              ];
+              $all_data_dealer_stock[] = $data;
+              // Ürün tiplerini diziye ekle
+              $product_types[] = $data["phone_id"];
             }
+            // Ürün tiplerini unique hale getir
+            $product_types = array_unique($product_types);
+            $all_data_dealer = array();
+            // Tüm bayileri al
+            while ($take = mysqli_fetch_array($query_dealer)) {
+              $data = [
+                "dealer_id" => $take["bayi_id"],
+                "city" => $take["ilce"]
+              ];
+              $all_data_dealer[] = $data;
+            }
+            // Her bir bayi için işlem yap
+            foreach ($all_data_dealer as $dealer) {
+              $dealer_id = $dealer['dealer_id'];
+              $dealer_city = $dealer['city'];
+              $stock_amount = 0; // Başlangıçta stok miktarını sıfırla
+              // Bayi stok miktarını hesapla
+              foreach ($all_data_dealer_stock as $dealer_stock) {
+                if ($dealer_stock['dealer_id'] == $dealer_id) {
+                  $stock_amount += $dealer_stock['stock'];
+                }
+              }
+              // Ürün tipi sayısını al
+              $product_type_count = count($product_types) + 1;
 
-            echo '<div id="search_info_cards_' . $i . '"  class="search_info_cards" style="display: ' . $display_style . '">';
-            echo "Telefon ID: " . $data["id"] . "<br>";
-            echo "Telefon Adı: " . $data["isim"] . "<br>";
-            echo "RAM: " . $data["ram"] . " GB" . "<br>";
-            echo "Ekran Boyutu: " . $data["ekran_boyutu"] . " inç" . "<br>";
-            echo "Hafıza: " . $data["hafiza"] . " GB" . "<br>";
-            echo "İşlemci: " . $data["islemci"] . "<br>";
-            echo "<button type='button' onclick='go_products(this)' id='go_store_button_" . $i . "' class='go_store_button'>Mağazada Gör</button>";
-            echo "</div>";
-            $i++;
-          }
+              // Kartları filtrele
+              $search_id = isset($_POST["search_id"]) ? $_POST["search_id"] : "";
+              $search_city = isset($_POST["search_city"]) ? $_POST["search_city"] : "";
 
-          ?>
+              $display_style = "none";
+              if (empty($search_id) && empty($search_city)) {
+                $display_style = 'block';
+              } else {
+                if ($search_id == $dealer["dealer_id"] || $search_city == $dealer["city"]) {
+                  $display_style = 'block';
+                }
+              }
+              echo "  <div class='card' id ='dealer_card_" . $dealer_id . "' style='display: " . $display_style . "'>";
+              echo "<h3>Bayi Bilgileri</h3>";
+              echo "<p><strong>Bayi ID:</strong> " . $dealer_id . "</p>";
+              echo "<p><strong>Bayi Şehri:</strong> " . $dealer_city . "</p>";
+              echo "<p><strong>Stok Miktarı:</strong> " . $stock_amount . "</p>";
+              echo "<p><strong>Ürün Tipi Sayısı:</strong>" . $product_type_count . "</p>";
+              echo "<button type='button' id='dealer_exp_" . $dealer_id . "'' >Bayideki Ürünleri Gör</button>";
+              echo "</div>";
+
+            }
+            ?>
+          </div>
         </div>
-    
-
       </div>
-      <script src="../../js/master_admin.js">
-    
-      </script>
-
-
+    </div>
+  </div>
 </body>
 
 </html>

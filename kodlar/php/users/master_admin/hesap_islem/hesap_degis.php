@@ -11,57 +11,14 @@
 <body>
   <div id="admin_body_div">
     <div class="admin_container" id="admin_left_container">
-
-    <h2>Ürün İşlemleri</h2>
-      <ul>
-        <li><a href="../urun_islem/urun_gor.php">Ürün Görüntüleme</a></li>
-        <li><a href="../urun_islem/urun_degis.php">Ürün Düzenleme</a></li>
-        <li><a href="../urun_islem/urun_ekle.php">Ürün Ekleme</a></li>
-        <li><a href="../urun_islem/urun_sil.php">Ürün Silme</a></li>
-      </ul>
-
-      <h2>Depo İşlemleri</h2>
-      <ul>
-        <li><a href="../depo_islem/depo_gor">Depo Görüntüleme</a></li>
-        <li><a href="../depo_islem/depo_degis">Depo Düzenleme</a></li>
-        <li><a href="../depo_islem/depo_ekle">Depo Ekleme</a></li>
-        <li><a href="../depo_islem/depo_sil">Depo Silme</a></li>
-      </ul>
-
-      <h2>Bayi İşlemleri</h2>
-      <ul>
-        <li><a href="../bayi_islem/bayi_gor">Bayi Görüntüleme</a></li>
-        <li><a href="../bayi_islem/bayi_degis">Bayi Düzenleme</a></li>
-        <li><a href="../bayi_islem/bayi_ekle">Bayi Ekleme</a></li>
-        <li><a href="../bayi_islem/bayi_sil">Bayi Silme</a></li>
-        <li><a href="../bayi_islem/bayi_gecmis_islem">Geçmiş İşlemler</a></li>
-      </ul>
-
-      <h2>Hesap İşlemleri</h2>
-      <ul>
-        <li><a href="hesap_gor">Hesap Bilgileri Görüntüleme</a></li>
-        <li><a href="hesap_degis">Hesap Değiştir</a></li>
-        <li><a href="hesap_ekle">Hesap Ekleme</a></li>
-        <li><a href="hesap_sil">Hesap Silme</a></li>
-        <li><a href="hesap_destek">Destek</a></li>
-        <li><a href="hesap_cikis">Çıkış Yap</a></li>
-      </ul>
-
-
-
-
-
-
+    <?php include("../left_bar.php"); ?>
     </div>
     <!--Sağ tarafta bulunan gövdenin özellikleri içeriği aşağıda verilmiştir.-->
     <?php include ("../../../contact/take_all_data.php");
     ?>
     <div id="admin_right_container" class="admin_container">
-      <div id="start_div">
-        LÜTFEN SOL TARAFTAKİ MENÜYÜ KULLANINIZ....
-      </div>
       <div class="admin_right_products_container">
-
+        
         <!--Buraya Ürün Bulmak için kodlar eklendi-->
         <div id="products_search">
           <h1>ÜRÜN İŞLEMLERİ</h1>
@@ -101,10 +58,10 @@
             $i++;
           }
 
-
+          
           ?>
         </div>
-
+          
         <!--Ürün özelliklerini değiştirme-->
         <div id="products_settings_divs">
 

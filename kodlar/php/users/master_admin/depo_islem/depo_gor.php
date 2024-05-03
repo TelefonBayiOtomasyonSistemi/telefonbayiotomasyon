@@ -6,107 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
   <link rel="stylesheet" href="../../../../css/master_admin.css">
-  <style>
-    .card-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .card {
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      padding: 10px;
-      width: calc(50% - 20px);
-      margin: auto;
-    }
-
-    .card-container {
-      margin-top: 50px;
-    }
-
-      {
-      margin-top: 0;
-    }
-
-    #warehouse_info_button{
-      background-color: #3c8340;
-      border: #3c8340;
-      padding: 5px 8px;
-      color: white;
-      border-radius: 5px;
-      font-size: 18px;
-      border: 2px solid #3c8340;
-    }
-
-    #warehouse_info_button:hover {
-      cursor: pointer;
-    }
-
-    .search_info_cards {
-      border: 1px solid black;
-      padding: 10px;
-      border-radius: 5px;
-      width: 400px;
-      margin: auto;
-      margin-top: 50px;
-      background-color: #ddf9de;
-    }
-
-    .search_info_cards button {
-      margin-top: 10px;
-      border: 1px solid #45a049;
-      background-color: #a8ffae;
-      border-radius: 5px;
-      padding: 5px 7px;
-    }
-
-    .search_info_cards button:hover {
-      background-color: #7bdc81;
-      cursor: pointer;
-    }
-  </style>
 </head>
 
 <body>
-  <div id="admin_body_div">
+  <div id="admin_body_div"> 
     <div class="admin_container" id="admin_left_container">
-
-      <h2>Ürün İşlemleri</h2>
-      <ul>
-        <li><a href="../urun_islem/urun_gor.php">Ürün Görüntüleme</a></li>
-        <li><a href="../urun_islem/urun_degis.php">Ürün Düzenleme</a></li>
-        <li><a href="../urun_islem/urun_ekle.php">Ürün Ekleme</a></li>
-        <li><a href="../urun_islem/urun_sil.php">Ürün Silme</a></li>
-      </ul>
-
-      <h2>Depo İşlemleri</h2>
-      <ul>
-        <li><a href="depo_gor.php">Depo Görüntüleme</a></li>
-        <li><a href="depo_degis.php">Depo Düzenleme</a></li>
-        <li><a href="depo_ekle.php">Depo Ekleme</a></li>
-        <li><a href="depo_sil.php">Depo Silme</a></li>
-      </ul>
-
-      <h2>Bayi İşlemleri</h2>
-      <ul>
-        <li><a href="../bayi_islem/bayi_gor.php">Bayi Görüntüleme</a></li>
-        <li><a href="../bayi_islem/bayi_degis.php">Bayi Düzenleme</a></li>
-        <li><a href="../bayi_islem/bayi_ekle.php">Bayi Ekleme</a></li>
-        <li><a href="../bayi_islem/bayi_sil.php">Bayi Silme</a></li>
-        <li><a href="../bayi_islem/bayi_gecmis_islem.php">Geçmiş İşlemler</a></li>
-      </ul>
-
-      <h2>Hesap İşlemleri</h2>
-      <ul>
-        <li><a href="../hesap_islem/hesap_gor.php">Hesap Bilgileri Görüntüleme</a></li>
-        <li><a href="../hesap_islem/hesap_degis.php">Hesap Değiştir</a></li>
-        <li><a href="../hesap_islem/hesap_ekle.php">Hesap Ekleme</a></li>
-        <li><a href="../hesap_islem/hesap_sil.php">Hesap Silme</a></li>
-        <li><a href="../hesap_islem/hesap_destek.php">Destek</a></li>
-        <li><a href="../hesap_islem/hesap_cikis.php">Çıkış Yap</a></li>
-      </ul>
-
+      <?php include("../left_bar.php"); ?>
     </div>
     <!--Sağ tarafta bulunan gövdenin özellikleri içeriği aşağıda verilmiştir.-->
     <?php include ("../../../contact/contact.php"); ?>
@@ -168,15 +73,33 @@
               }
               // Telefon çeşidi sayısını al
               $telefon_cesidi_sayisi = count($telefon_cesidi) + 1;
-              ?>
-              <div class="card">
-                <h3>Depo Bilgileri</h3>
-                <p><strong>Depo ID:</strong> <?php echo $depo_id; ?></p>
-                <p><strong>Depo Şehri:</strong> <?php echo $depo_sehir; ?></p>
-                <p><strong>Stok Miktarı:</strong> <?php echo $stok_miktari; ?></p>
-                <p><strong>Telefon Çeşidi Sayısı:</strong> <?php echo $telefon_cesidi_sayisi; ?></p>
-              </div>
-              <?php
+
+
+              // Kartları filtrele
+// Kartları filtrele
+$search_id = isset($_POST["search_id"]) ? $_POST["search_id"] : "";
+$search_town = isset($_POST["search_town"]) ? $_POST["search_town"] : "";
+
+$display_style = "none";
+if (empty($search_id) && empty($search_town)) {
+    $display_style = 'block';
+} else {
+    if ($search_id == $depo["depo_id"] || $search_town == $depo["sehir"]) {
+        $display_style = 'block';
+    }
+}
+echo "  <div class='card' id ='warehouse_card_" . $depo_id . "' style='display: " . $display_style . "'>";
+
+              echo "<h3>Depo Bilgileri</h3>";
+              echo "<p><strong>Depo ID:</strong> " . $depo_id . "</p>";
+              echo "<p><strong>Depo Şehri:</strong> " . $depo_sehir . "</p>";
+              echo "<p><strong>Stok Miktarı:</strong> " . $stok_miktari . "</p>";
+              echo "<p><strong>Telefon Çeşidi Sayısı:</strong>" . $telefon_cesidi_sayisi . "</p>";
+              echo "<button type='button' id='warhouse_exp_" . $depo_id . "'' >Depodaki Ürünleri Gör</button>";
+              echo "</div>";
+
+
+
             }
             ?>
           </div>
