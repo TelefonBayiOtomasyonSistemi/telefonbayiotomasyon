@@ -60,7 +60,7 @@ productsFromSeller.forEach(function(product, index) {
     productsHomeDiv.appendChild(productDiv);
 });
 
-    // Ürünlerin üzerine tıklandığında detay sayfasına yönlendirme yapalım
+ 
     
     </script>
 </body>
