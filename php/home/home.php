@@ -59,6 +59,9 @@ productsFromSeller.forEach(function(product, index) {
     // products_home div'i içine oluşturulan ürün div'ini ekleyelim
     productsHomeDiv.appendChild(productDiv);
 });
+
+    // Ürünlerin üzerine tıklandığında detay sayfasına yönlendirme yapalım
+    
     </script>
 </body>
 </html>
