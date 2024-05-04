@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 04 May 2024, 16:36:33
+-- Üretim Zamanı: 04 May 2024, 18:30:26
 -- Sunucu sürümü: 10.4.32-MariaDB
 -- PHP Sürümü: 8.2.12
 
@@ -364,7 +364,20 @@ CREATE TABLE `kullanici` (
 
 INSERT INTO `kullanici` (`musteri_id`, `hesap_tipi`, `ad`, `soyad`, `email`, `sifre`, `dogum_gunu`, `adres`) VALUES
 (1, 'müsteri', 'ismail', 'aydın', 'ismailaydin52002@gmail.com', '123456789', '1212-12-12', 'Cumhurbaşkanlığı Külliyesi'),
-(2, NULL, 'asd', 'asd', 'ohyes3131@gmail.com', '123', '2002-05-07', 'koaskdkaokdad');
+(2, 'bayi', 'asd', 'asd', 'ohyes3131@gmail.com', '123', '2002-05-07', 'koaskdkaokdad'),
+(3, 'admin', 'admin', 'admin', 'admin@gmail.com', 'admin', '0000-00-00', 'admin'),
+(4, 'bayi', 'izmit', '', 'izmit@gmail.com', 'izmit41', '0000-00-00', 'kocaeli/izmit'),
+(5, 'bayi', 'gebze', '', 'gebze@gmail.com', 'gebze41', '0000-00-00', 'kocaeli/gebze'),
+(6, 'bayi', 'kadıköy', '', 'kadikoy@gmail.com', 'kadıköy34', '0000-00-00', 'istanbul/kadıköy'),
+(7, 'bayi', 'üsküdar', '', 'uskudar@gmail.com', 'üsküdar34', '0000-00-00', 'istanbul/üsküdar'),
+(8, 'bayi', 'ardeşen', '', 'ardesen@gmail.com', 'ardeşen53', '0000-00-00', 'rize/ardeşen'),
+(9, 'bayi', 'merkez', '', 'merkez@gmail.com', 'merkez53', '0000-00-00', 'rize/merkez'),
+(10, 'bayi', 'aybastı', '', 'aybasti@gmail.com', 'aybastı52', '0000-00-00', 'ordu/aybastı'),
+(11, 'bayi', 'fatsa', '', 'fatsa@gmail.com', 'fatsa52', '0000-00-00', 'ordu/fatsa'),
+(12, 'müsteri', 'adem', 'güler', 'ademguler@gmail.com', 'adem52', '0000-00-00', 'ordu/aybastı'),
+(13, 'müsteri', 'kürşat', 'alacalar', 'kursatalacalar@gmail.com', 'kürşat52', '0000-00-00', 'ordu/aybastı'),
+(14, 'müsteri', 'doğukan', 'gün', 'dogukangun@gmail.com', 'doğukan52', '0000-00-00', 'ordu/aybastı'),
+(15, 'müsteri', 'semih', 'çelik', 'semihcelik@gmail.com', 'semih52', '0000-00-00', 'ordu/aybastı');
 
 -- --------------------------------------------------------
 
@@ -524,7 +537,15 @@ CREATE TABLE `satilan_urun` (
 --
 
 INSERT INTO `satilan_urun` (`satis`, `bayi_id`, `musteri_id`, `telefon_id`, `tarih`) VALUES
-(1, 1, 1, 1, '2024-04-29 15:33:26');
+(1, 1, 1, 1, '2024-04-29 15:33:26'),
+(2, 2, 12, 21, '2024-05-04 15:20:00'),
+(3, 4, 15, 24, '2024-05-04 15:20:00'),
+(4, 8, 12, 35, '2024-05-04 15:20:00'),
+(5, 3, 13, 31, '2024-05-04 15:20:00'),
+(6, 6, 14, 14, '2024-05-04 15:20:00'),
+(7, 5, 15, 11, '2024-05-04 15:20:00'),
+(8, 7, 12, 39, '2024-05-04 15:20:00'),
+(9, 3, 13, 11, '2024-05-04 15:20:00');
 
 -- --------------------------------------------------------
 
@@ -703,13 +724,13 @@ ALTER TABLE `telefon`
 -- Tablo için AUTO_INCREMENT değeri `kullanici`
 --
 ALTER TABLE `kullanici`
-  MODIFY `musteri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `musteri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `satilan_urun`
 --
 ALTER TABLE `satilan_urun`
-  MODIFY `satis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `satis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `telefon`
