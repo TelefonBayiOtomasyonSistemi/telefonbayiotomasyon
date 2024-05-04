@@ -24,13 +24,9 @@ if ($conn->connect_error) {
 $sql = "SELECT * FROM kullanici WHERE email='$email' AND sifre='$sifre'";
 $result = $conn->query($sql);
 
-
+//hesap tipi sorgulama
 $sqlgiris ="SELECT hesap_tipi FROM kullanici WHERE email='$email' AND sifre='$sifre'";
 $resultgiris = $conn->query($sqlgiris);
-
-
-
-
 
 // Kullanıcı var mı kontrol et
 if ($result->num_rows > 0) {
@@ -61,9 +57,6 @@ else{
 
 exit();
 }
-
-
-
 
 else {
     // Giriş başarısız ise, kullanıcıyı tekrar giriş sayfasına yönlendir
