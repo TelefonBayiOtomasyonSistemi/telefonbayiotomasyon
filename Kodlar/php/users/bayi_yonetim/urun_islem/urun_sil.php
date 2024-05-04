@@ -53,33 +53,11 @@
           echo "Hafıza: " . $ts['hafiza'] . " GB" . "<br>";
           echo "İşlemci: " . $ts['islemci'] . "<br>";
           echo "<button type='button' onclick='go_products(" . $ts['id'] . ")' id='go_store_button_" . $i . "' class='go_store_button'>Mağazada Gör</button>";
-          echo "<button type='button' onclick='confirm_delete(" . $ts['id'] . ")' class='delete_button'>Ürünü Sil</button>";
           echo "</div>";
           $i++;
         }
         ?>
       </div>
-      <?php
-// Veritabanı bağlantısı
-include ("../../../contact/take_all_data.php");
-
-// AJAX isteğinden ürün ID'sini al
-$product_id = isset($_GET['id']) ? $_GET['id'] : '';
-
-if (!empty($product_id)) {
-    // Ürünü veritabanından silme sorgusu
-    $delete_query = mysqli_query($connection, "DELETE FROM urunler WHERE id = '$product_id'");
-    
-    if ($delete_query) {
-        echo "success"; // Silme işlemi başarılıysa "success" cevabı döndür
-    } else {
-        echo "error"; // Silme işlemi başarısızsa "error" cevabı döndür
-    }
-}
-
-
-
-?>
 
 
       <!--Ürün silme-->
@@ -91,7 +69,7 @@ if (!empty($product_id)) {
       <script src="../../../../js/master_admin.js">
       </script>
 
-      
+
 
 
 </body>

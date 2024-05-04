@@ -37,19 +37,11 @@
 <body>
   <div id="container">
     <div id="left_container">
-      <?php include ("../left_bar.php"); ?>
+      <?php include ("../bayi_left_bar.php"); ?>
     </div>
     <!--Sağ tarafta bulunan gövdenin özellikleri içeriği aşağıda verilmiştir.-->
     <?php include ("../../../contact/contact.php"); ?>
     <div id="right_container" class="admin_container">
-      <div id="dealers_search">
-        <h2>BAYİ BİLGİLERİNİ GÖRÜNTÜLE</h2>
-        <form id="dealer_info_form" method="POST">
-          <input type="text" name="search_id" id="search_id" placeholder="Bayi ID">
-          <input type="text" name="search_city" id="search_city" placeholder="Bayi Şehri">
-          <button type="submit" id="search_info_button">Bayileri Bul</button>
-        </form>
-      </div>
 
       <!--Buraya Bayi Bulmak için kodlar eklendi-->
       <div id="dealers_search">
@@ -61,8 +53,8 @@
           <div class="card-container">
             <?php
             // Bayi bilgilerini alma
-            $query_dealer_stock = mysqli_query($connection, 'SELECT * FROM bayi_stok');
-            $query_dealer = mysqli_query($connection, 'SELECT * FROM bayi');
+            $query_dealer_stock = mysqli_query($connection, 'SELECT * FROM bayi_stok WHERE bayi_id="1"');
+            $query_dealer = mysqli_query($connection, 'SELECT * FROM bayi WHERE bayi_id="1"');
             $product_types = array(); // Ürün tiplerini tutacak dizi
             $all_data_dealer_stock = array();
             // Tüm bayi stoklarını al
@@ -119,13 +111,14 @@
               echo "<p><strong>Bayi Şehri:</strong> " . $dealer_city . "</p>";
               echo "<p><strong>Stok Miktarı:</strong> " . $stock_amount . "</p>";
               echo "<p><strong>Ürün Tipi Sayısı:</strong>" . $product_type_count . "</p>";
-              echo '<button type="button" onclick="showSales(' . $dealer_id . ')" class="dealer_button" id="dealer_exp_' . $dealer_id . '">Geçmiş İşlemleri Gör</button>';
               echo "</div>";
 
             }
-            //Geçmiş işlemleri görüntüleme kodu
-            $satilan_urunler = array();
-            $satilan_urun_dealer = mysqli_query($connection, "SELECT * FROM satilan_urun");
+            //Gemiş işlemleri görüntüleme kodu
+            $satilan_urunler = array(); // Satılan ürünlerin verilerini tutacak dizi
+            
+            // Satılan ürünlerin verilerini alma
+            $satilan_urun_dealer = mysqli_query($connection, 'SELECT * FROM satilan_urun WHERE bayi_id="1"');
             while ($take = mysqli_fetch_array($satilan_urun_dealer)) {
               $satilan_urunler[] = array(
                 "bayi_id" => $take["bayi_id"],
@@ -135,12 +128,18 @@
                 "tarih" => $take["tarih"]
               );
             }
-            echo "<table border='1' id='sales_table'>";
-            echo "<tr><th>Bayi ID</th><th>Telefon ID</th><th>Müşteri ID</th><th>Satış Miktarı</th><th>Tarih</th></tr>";
+
+            echo "<table border='1'>
+                  <tr>
+                  <th>Bayi ID</th>
+                  <th>Telefon ID</th>
+                  <th>Müşteri ID</th>
+                  <th>Satış Miktarı</th>
+                  <th>Tarih</th>
+                  </tr>";
 
             foreach ($satilan_urunler as $urun) {
-              $uid = $urun['bayi_id'];
-              echo "<tr id='$uid' style='display:none;'>";
+              echo "<tr>";
               echo "<td>" . $urun['bayi_id'] . "</td>";
               echo "<td>" . $urun['telefon_id'] . "</td>";
               echo "<td>" . $urun['musteri_id'] . "</td>";
@@ -149,31 +148,13 @@
               echo "</tr>";
             }
 
-
             echo "</table>";
-            ?>
 
+            ?>
           </div>
         </div>
       </div>
     </div>
-    <script>
-      function showSales(dealerId) {
-    var rows = document.querySelectorAll("[id='" + dealerId + "']");
-    
-    rows.forEach(function(row) {
-        if (row.style.display === "none") {
-            row.style.display = "table-row";
-        } else {
-            row.style.display = "none";
-        }
-    });
-}
-
-
-
-    </script>
-
 </body>
 
 </html>
