@@ -1,3 +1,14 @@
+<?php
+include ("../navbar/navbar.php");
+include ("../contact/contact.php");
+$phoneID = $_GET['id'];
+$query_resim = mysqli_query($connection, 'select * from resimler where id="' . $phoneID . '"');
+$resim_row = mysqli_fetch_array($query_resim);
+$resim1 = $resim_row['resim1'];
+$resim2 = $resim_row['resim2'];
+$resim3 = $resim_row['resim3'];
+$resim4 = $resim_row['resim4'];
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,31 +29,23 @@
 </head>
 
 <body>
-    <?php
-    include ("../navbar/navbar.php");
-    ?>
     <div id="product_info_div">
         <div id="product_pictures_div">
             <div id="top_pictures">
-                <img src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihZH5DbGgFGsEkAAS5VOlKEalqzeoSUSQM8ok-Xpvbw1ifKMTVs9Fyw4fhsVcdQF9kC5P_fvcWBePf1rQiV2MdjmH9lb1ge5fQ=w1920-h957-rw-v1"
-                    id="main_pictures_img">
+                <img src="<?php echo $resim1; ?>" id="main_pictures_img">
             </div>
             <div id="bottom_pictures">
                 <div class="in_bottom_pictures" onclick="choice_photo()">
-                    <img id="first_bottom_picture_img" class="bottom_pictures_img"
-                        src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihYpDAtVemxs3ghYIYOSGbxuikvqSXN3vpSPIijXMLHWjl9pWTbIR4vdC_rcfbV_nyZXUw2kMh4fzEkg6FyEH9ekEv_KO7gHEeA=w1920-h957-rw-v1">
+                    <img id="first_bottom_picture_img" class="bottom_pictures_img" src="<?php echo $resim1; ?>">
                 </div>
                 <div class="in_bottom_pictures" onclick="choice_photo()">
-                    <img id="first_bottom_picture_img" class="bottom_pictures_img"
-                        src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihZH5DbGgFGsEkAAS5VOlKEalqzeoSUSQM8ok-Xpvbw1ifKMTVs9Fyw4fhsVcdQF9kC5P_fvcWBePf1rQiV2MdjmH9lb1ge5fQ=w1920-h957-rw-v1">
+                    <img id="first_bottom_picture_img" class="bottom_pictures_img" src="<?php echo $resim2; ?>">
                 </div>
                 <div class="in_bottom_pictures" onclick="choice_photo()">
-                    <img id="first_bottom_picture_img" class="bottom_pictures_img"
-                        src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihYpDAtVemxs3ghYIYOSGbxuikvqSXN3vpSPIijXMLHWjl9pWTbIR4vdC_rcfbV_nyZXUw2kMh4fzEkg6FyEH9ekEv_KO7gHEeA=w1920-h957-rw-v1">
+                    <img id="first_bottom_picture_img" class="bottom_pictures_img" src="<?php echo $resim3; ?>">
                 </div>
                 <div class="in_bottom_pictures" onclick="choice_photo()">
-                    <img id="first_bottom_picture_img" class="bottom_pictures_img"
-                        src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihYpDAtVemxs3ghYIYOSGbxuikvqSXN3vpSPIijXMLHWjl9pWTbIR4vdC_rcfbV_nyZXUw2kMh4fzEkg6FyEH9ekEv_KO7gHEeA=w1920-h957-rw-v1">
+                    <img id="first_bottom_picture_img" class="bottom_pictures_img" src="<?php echo $resim4; ?>">
                 </div>
 
             </div>
@@ -50,9 +53,6 @@
         <div id="product_explain_div">
             <!--Veri alma -->
             <?php
-            include ("../contact/contact.php");
-
-            $phoneID = $_GET['id'];
             $sql_ozellik = mysqli_query($connection, "SELECT * FROM ozellik WHERE id ='$phoneID'");
             $sql_telefon = mysqli_query($connection, "SELECT * FROM telefon WHERE telefon_id ='$phoneID'");
 
@@ -89,11 +89,7 @@
                     </div>';
 
             echo $html;
-
-
-
             ?>
-
         </div>
     </div>
     <script src="../../js/features_product.js"></script>
