@@ -6,30 +6,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bayi İşlemleri</title>
   <link rel="stylesheet" href="../../../../css/master_admin.css">
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 80%;
+      margin: auto;
+    }
+
+    th,
+    td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    tr:hover {
+      background-color: #ddd;
+    }
+  </style>
 </head>
 
 <body>
-  <div id="container"> 
+  <div id="container">
     <div id="left_container">
-      <?php include("../bayi_left_bar.php"); ?>
+      <?php include ("../left_bar.php"); ?>
     </div>
     <!--Sağ tarafta bulunan gövdenin özellikleri içeriği aşağıda verilmiştir.-->
     <?php include ("../../../contact/contact.php"); ?>
     <div id="right_container" class="admin_container">
-
-        <!--Buraya Bayi Bulmak için kodlar eklendi-->
-        <div id="dealers_search">
+      <div id="dealers_search">
         <h2>BAYİ BİLGİLERİNİ GÖRÜNTÜLE</h2>
-          <form id="dealer_info_form" method="POST">
-            <input type="text" name="search_id" id="search_id" placeholder="Bayi ID">
-            <input type="text" name="search_city" id="search_city" placeholder="Bayi Şehri">
-            <button type="submit" id="search_info_button">Bayileri Bul</button>
-          </form>
-        </div>
+        <form id="dealer_info_form" method="POST">
+          <input type="text" name="search_id" id="search_id" placeholder="Bayi ID">
+          <input type="text" name="search_city" id="search_city" placeholder="Bayi Şehri">
+          <button type="submit" id="search_info_button">Bayileri Bul</button>
+        </form>
+      </div>
+
+      <!--Buraya Bayi Bulmak için kodlar eklendi-->
+      <div id="dealers_search">
+        <h2>BAYİ BİLGİLERİNİ GÖRÜNTÜLE</h2>
         <!--Bayi bilgilerini görüntüleme-->
 
         <div id="dealer_info_divs">
-          
+
           <div class="card-container">
             <?php
             // Bayi bilgilerini alma
@@ -91,27 +119,61 @@
               echo "<p><strong>Bayi Şehri:</strong> " . $dealer_city . "</p>";
               echo "<p><strong>Stok Miktarı:</strong> " . $stock_amount . "</p>";
               echo "<p><strong>Ürün Tipi Sayısı:</strong>" . $product_type_count . "</p>";
-              echo "<button type='button' class='dealer_button' id='dealer_exp_" . $dealer_id . "'' >Geçmiş İşlemleri Gör</button>";
+              echo '<button type="button" onclick="showSales(' . $dealer_id . ')" class="dealer_button" id="dealer_exp_' . $dealer_id . '">Geçmiş İşlemleri Gör</button>';
               echo "</div>";
 
             }
-            //Gemiş işlemleri görüntüleme kodu
-            $satilan_urun_dealer = mysqli_query($connection, 'SELECT * FROM satilan_urun');
-            while($take = mysqli_fetch_array($satilan_urun_dealer)){
-                $satilan_urunler = [
-                    "bayi_id" => $take["bayi_id"],
+            //Geçmiş işlemleri görüntüleme kodu
+            $satilan_urunler = array();
+            $satilan_urun_dealer = mysqli_query($connection, "SELECT * FROM satilan_urun");
+            while ($take = mysqli_fetch_array($satilan_urun_dealer)) {
+              $satilan_urunler[] = array(
+                "bayi_id" => $take["bayi_id"],
                 "telefon_id" => $take["telefon_id"],
                 "musteri_id" => $take["musteri_id"],
-                "tarih" => $take["tarih"],
-                "satis_miktari"=> $take["satis"]
-                ];
+                "satis_miktari" => $take["satis"],
+                "tarih" => $take["tarih"]
+              );
+            }
+            echo "<table border='1' id='sales_table'>";
+            echo "<tr><th>Bayi ID</th><th>Telefon ID</th><th>Müşteri ID</th><th>Satış Miktarı</th><th>Tarih</th></tr>";
+
+            foreach ($satilan_urunler as $urun) {
+              $uid = $urun['bayi_id'];
+              echo "<tr id='$uid' style='display:none;'>";
+              echo "<td>" . $urun['bayi_id'] . "</td>";
+              echo "<td>" . $urun['telefon_id'] . "</td>";
+              echo "<td>" . $urun['musteri_id'] . "</td>";
+              echo "<td>" . $urun['satis_miktari'] . "</td>";
+              echo "<td>" . $urun['tarih'] . "</td>";
+              echo "</tr>";
             }
 
+
+            echo "</table>";
             ?>
+
           </div>
         </div>
+      </div>
     </div>
-  </div>
+    <script>
+      function showSales(dealerId) {
+    var rows = document.querySelectorAll("[id='" + dealerId + "']");
+    
+    rows.forEach(function(row) {
+        if (row.style.display === "none") {
+            row.style.display = "table-row";
+        } else {
+            row.style.display = "none";
+        }
+    });
+}
+
+
+
+    </script>
+
 </body>
 
 </html>
