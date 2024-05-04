@@ -45,7 +45,7 @@ if ($hesap_tipi == "müsteri") {
     echo "<script>setTimeout(function() { window.location.href = '../home/home.php'; }, );</script>";
 }
 else if ($hesap_tipi== "bayi") {
-    echo "<script>setTimeout(function() { window.location.href = '../users/bayi_yonetim/bayi_islem/bayi_gecmis_islem.php'; }, );</script>";
+    echo "<script>setTimeout(function() { window.location.href = '../users/satici_admin.php'; }, );</script>";
 
 } 
 else if ($hesap_tipi == "admin") {
