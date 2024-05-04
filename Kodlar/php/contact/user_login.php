@@ -27,6 +27,7 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // Kullanıcıyı giriş sayfasına yönlendir
     echo "<script>alert('Giriş başarılı! Anasayfaya yönlendiriliyorsunuz...');</script>";
+    
     echo "<script>setTimeout(function() { window.location.href = '../home/home.php'; }, );</script>";
     exit();
 } else {
