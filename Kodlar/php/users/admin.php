@@ -59,27 +59,15 @@
                         <input type="number" id="ram" name="ram" required>
                     </div>
                     <div class="form-group">
-                        <label for="rearCameraCount">Arka Kamera Sayısı:</label>
+                        <label for="rearCameraCount">Kamera megapiksel:</label>
                         <input type="number" id="rearCameraCount" name="rearCameraCount" min="1" max="4" required>
                     </div>
                     <div id="rearCameraDetails">
                         <!-- Arka kamera detayları buraya eklenecek -->
                     </div>
                     <div class="form-group">
-                        <label for="frontCamera">Ön Kamera:</label>
-                        <input type="text" id="frontCamera" name="frontCamera" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="batteryCapacity">Batarya Kapasitesi (mAh):</label>
-                        <input type="number" id="batteryCapacity" name="batteryCapacity" required>
-                    </div>
-                    <div class="form-group">
                         <label for="screenSize">Ekran Boyutu (inç):</label>
                         <input type="number" id="screenSize" name="screenSize" step="0.1" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="color">Renk:</label>
-                        <input type="text" id="color" name="color" required>
                     </div>
                     <button type="submit">Telefonu Ekle</button>
                 </form>
