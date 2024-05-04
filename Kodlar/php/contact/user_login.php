@@ -49,7 +49,7 @@ else if ($hesap_tipi== "bayi") {
 
 } 
 else if ($hesap_tipi == "admin") {
-    echo "<script>setTimeout(function() { window.location.href = '../users/admin.php'; }, );</script>";
+    echo "<script>setTimeout(function() { window.location.href = '../users/master_admin/urun_islem/urun_gor.php'; }, );</script>";
 }
 else{
     echo "<script>alert('böyle bir müşteri bulunmamakta');</script>";
