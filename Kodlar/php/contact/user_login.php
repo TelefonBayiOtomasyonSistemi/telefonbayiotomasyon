@@ -42,17 +42,26 @@ if ($result->num_rows > 0) {
         }}
 
 if ($hesap_tipi == "müsteri") {
+    echo "<script>
+    localStorage.setItem('kullanici', '$hesap_tipi');
+  </script>";
     echo "<script>setTimeout(function() { window.location.href = '../home/home.php'; }, );</script>";
 }
 else if ($hesap_tipi== "bayi") {
+    "<script>
+    localStorage.setItem('kullanici', '$hesap_tipi');
+  </script>";
     echo "<script>setTimeout(function() { window.location.href = '../users/bayi_yonetim/bayi_islem/bayi_gecmis_islem.php'; }, );</script>";
 
 } 
 else if ($hesap_tipi == "admin") {
+    "<script>
+    localStorage.setItem('kullanici', '$hesap_tipi');
+  </script>";
     echo "<script>setTimeout(function() { window.location.href = '../users/master_admin/urun_islem/urun_gor.php'; }, );</script>";
 }
 else{
-    echo "<script>alert('böyle bir müşteri bulunmamakta');</script>";
+    echo "<script>alert('Bu hesap herhangi bir hesap tipiyle uyuşmamaktadır.');</script>";
 }
 
 exit();
