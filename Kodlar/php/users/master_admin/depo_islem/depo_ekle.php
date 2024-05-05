@@ -25,6 +25,24 @@
           <input type="submit" value="Ekle" class="warehouse_button">
         </form>
 
+        <?php
+// Formdan gelen şehir bilgisini al
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // warehouse_town form alanından şehir bilgisini al
+    $sehir = $_POST['warehouse_town'];
+    
+    // Depo tablosuna şehir bilgisini eklemek için SQL sorgusu
+    $depo = "INSERT INTO depo (sehir) VALUES ('$sehir')";
+    
+    if (mysqli_query($connection, $depo)) {
+        echo "Şehir başarıyla depo tablosuna eklendi.";
+    } else {
+        echo "Hata: " . mysqli_error($connection);
+    }
+}
+?>
+
+      
       </div>
     </div>
   </div>
