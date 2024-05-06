@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Kullanıcı bilgilerini al
 $email = $_POST['email'];
 $sifre = $_POST['password'];
@@ -20,6 +21,40 @@ if ($connection->connect_error) {
 // Kullanıcıyı sorgula
 $sql = "SELECT hesap_tipi, musteri_id FROM kullanici WHERE email='$email' AND sifre='$sifre'";
 $result = $connection->query($sql);
+
+$sessiongiris = "SELECT * FROM kullanici WHERE email='$email' AND sifre='$sifre";
+$sessionsonuc = $connection->query($sessiongiris);
+
+
+if ($sessionsonuc) {
+    // If the query was successful, iterate through the result set
+    while ($row = $sessionsonuc->fetch_assoc()) {
+        // Your processing logic here
+        $hesap_tipi = $row["hesap_tipi"];
+        $id = $row["musteri_id"];
+        $isim = $row["ad"];
+        $soyisim = $row["soyad"];
+        $email = $row["email"];
+        $sifre = $row["sifre"];
+        $dogum_gunu = $row["dogum_gunu"];
+        $adres = $row["adres"];
+
+        // Process each row here
+    }
+} else {
+    // Handle the case where the query failed
+    echo "Error executing query: " . $mysqli->error;
+}
+
+$_SESSION['id'] = $id;
+$_SESSION['isim'] = $isim;
+$_SESSION['soyisim'] = $isim;
+$_SESSION['email'] = $email;
+$_SESSION['sifre'] = $sifre;
+$_SESSION['dogum_gunu'] = $dogum_gunu;
+$_SESSION['adres'] = $adres;
+
+
 
 // Kullanıcı var mı kontrol et
 if ($result->num_rows > 0) {
@@ -43,7 +78,13 @@ if ($result->num_rows > 0) {
             exit();
         }
     }
-} else {
+} 
+
+
+
+
+
+else {
     // Giriş başarısız ise, kullanıcıyı tekrar giriş sayfasına yönlendir
     echo "<script>alert('Hatalı Giriş!');</script>";
     echo "<script>setTimeout(function() { window.location.href = '../login/login.php'; }, );</script>";

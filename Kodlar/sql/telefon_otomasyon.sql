@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Anamakine: 127.0.0.1
--- Üretim Zamanı: 04 May 2024, 18:30:26
+-- Üretim Zamanı: 06 May 2024, 13:08:54
 -- Sunucu sürümü: 10.4.32-MariaDB
--- PHP Sürümü: 8.2.12
+-- PHP Sürümü: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Veritabanı: `telefon_otomasyon`
 --
+CREATE DATABASE IF NOT EXISTS `telefon_otomasyon` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `telefon_otomasyon`;
 
 -- --------------------------------------------------------
 
@@ -45,7 +47,8 @@ INSERT INTO `bayi` (`bayi_id`, `ilce`, `depo_id`) VALUES
 (5, 'ardeşen', 3),
 (6, 'merkez', 3),
 (7, 'aybastı', 4),
-(8, 'fatsa', 4);
+(8, 'fatsa', 4),
+(13, 'nisantası', 2);
 
 -- --------------------------------------------------------
 
@@ -164,7 +167,8 @@ INSERT INTO `depo` (`depo_id`, `sehir`) VALUES
 (1, 'kocaeli'),
 (2, 'istanbul'),
 (3, 'rize'),
-(4, 'ordu');
+(4, 'ordu'),
+(5, 'adana');
 
 -- --------------------------------------------------------
 
@@ -363,12 +367,12 @@ CREATE TABLE `kullanici` (
 --
 
 INSERT INTO `kullanici` (`musteri_id`, `hesap_tipi`, `ad`, `soyad`, `email`, `sifre`, `dogum_gunu`, `adres`) VALUES
-(1, 'müsteri', 'ismail', 'aydın', 'ismailaydin52002@gmail.com', '123456789', '1212-12-12', 'Cumhurbaşkanlığı Külliyesi'),
-(2, 'bayi', 'asd', 'asd', 'ohyes3131@gmail.com', '123', '2002-05-07', 'koaskdkaokdad'),
+(1, 'müsteri', 'ismail', 'aydın', 'ismailaydin52002@gmail.com', '1', '1212-12-12', 'Cumhurbaşkanlığı Külliyesi'),
+(2, 'bayi', 'asd', 'asd', 'bayideneme@gmail.com', '123', '2002-05-07', 'koaskdkaokdad'),
 (3, 'admin', 'admin', 'admin', 'admin@gmail.com', 'admin', '0000-00-00', 'admin'),
 (4, 'bayi', 'izmit', '', 'izmit@gmail.com', 'izmit41', '0000-00-00', 'kocaeli/izmit'),
 (5, 'bayi', 'gebze', '', 'gebze@gmail.com', 'gebze41', '0000-00-00', 'kocaeli/gebze'),
-(6, 'bayi', 'kadıköy', '', 'kadikoy@gmail.com', 'kadıköy34', '0000-00-00', 'istanbul/kadıköy'),
+(6, 'bayi', 'kadıköy', '', 'kadıkoy@gmail.com', 'kadıköy34', '0000-00-00', 'istanbul/kadıköy'),
 (7, 'bayi', 'üsküdar', '', 'uskudar@gmail.com', 'üsküdar34', '0000-00-00', 'istanbul/üsküdar'),
 (8, 'bayi', 'ardeşen', '', 'ardesen@gmail.com', 'ardeşen53', '0000-00-00', 'rize/ardeşen'),
 (9, 'bayi', 'merkez', '', 'merkez@gmail.com', 'merkez53', '0000-00-00', 'rize/merkez'),
@@ -377,7 +381,8 @@ INSERT INTO `kullanici` (`musteri_id`, `hesap_tipi`, `ad`, `soyad`, `email`, `si
 (12, 'müsteri', 'adem', 'güler', 'ademguler@gmail.com', 'adem52', '0000-00-00', 'ordu/aybastı'),
 (13, 'müsteri', 'kürşat', 'alacalar', 'kursatalacalar@gmail.com', 'kürşat52', '0000-00-00', 'ordu/aybastı'),
 (14, 'müsteri', 'doğukan', 'gün', 'dogukangun@gmail.com', 'doğukan52', '0000-00-00', 'ordu/aybastı'),
-(15, 'müsteri', 'semih', 'çelik', 'semihcelik@gmail.com', 'semih52', '0000-00-00', 'ordu/aybastı');
+(15, 'müsteri', 'semih ', 'çelik', 'semihcelik@gmail.com', 'semih52', '0000-00-00', 'ordu/aybastı'),
+(21, 'bayi', NULL, NULL, 'nisantası@gmail.com', 'nisantası', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -438,7 +443,9 @@ INSERT INTO `ozellik` (`id`, `ram`, `hafiza`, `islemci`, `kamera`, `ekran_boyutu
 (37, '8GB', '256GB', 'Mediatek Dimensity 1080', '50MP', 6.67),
 (38, '12GB', '512GB', 'Snapdragon 8+ Gen 1', '64MP', 6.67),
 (39, '12GB', '256GB', 'Snapdragon 7S Gen 2', '64MP', 6.67),
-(40, '12GB', '256GB', 'Snapdragon 7+ Gen 2', '64MP', 6.67);
+(40, '12GB', '256GB', 'Snapdragon 7+ Gen 2', '64MP', 6.67),
+(41, '100 GB', '1000 GB', 'm2', '200 MP', 8),
+(42, '1 GB', '1 GB', '1', '1 MP', 1);
 
 --
 -- Tetikleyiciler `ozellik`
@@ -538,14 +545,14 @@ CREATE TABLE `satilan_urun` (
 
 INSERT INTO `satilan_urun` (`satis`, `bayi_id`, `musteri_id`, `telefon_id`, `tarih`) VALUES
 (1, 1, 1, 1, '2024-04-29 15:33:26'),
-(2, 2, 12, 21, '2024-05-04 15:20:00'),
-(3, 4, 15, 24, '2024-05-04 15:20:00'),
-(4, 8, 12, 35, '2024-05-04 15:20:00'),
-(5, 3, 13, 31, '2024-05-04 15:20:00'),
-(6, 6, 14, 14, '2024-05-04 15:20:00'),
-(7, 5, 15, 11, '2024-05-04 15:20:00'),
-(8, 7, 12, 39, '2024-05-04 15:20:00'),
-(9, 3, 13, 11, '2024-05-04 15:20:00');
+(2, 2, 12, 21, '2024-05-04 15:20:03'),
+(3, 4, 15, 24, '2024-05-04 15:20:03'),
+(4, 8, 12, 35, '2024-05-04 15:20:03'),
+(5, 3, 13, 31, '2024-05-04 15:20:03'),
+(6, 6, 14, 14, '2024-05-04 15:20:03'),
+(7, 5, 15, 11, '2024-05-04 15:20:03'),
+(8, 7, 12, 39, '2024-05-04 15:20:03'),
+(9, 3, 13, 11, '2024-05-04 15:20:03');
 
 -- --------------------------------------------------------
 
@@ -616,7 +623,9 @@ INSERT INTO `telefon` (`telefon_id`, `marka`, `model`, `fiyat`) VALUES
 (37, 'Xiaomi', 'Redmi Note 12 Pro', 10600),
 (38, 'Xiaomi', 'Poco F5 Pro', 27900),
 (39, 'Xiaomi', 'Poco X6 Pro', 18900),
-(40, 'Xiaomi', 'Poco F5 ', 17900);
+(40, 'Xiaomi', 'Poco F5 ', 17900),
+(41, 'nokia', '3310', 1),
+(42, 'lg', 'g3', 1000);
 
 -- --------------------------------------------------------
 
@@ -721,10 +730,22 @@ ALTER TABLE `telefon`
 --
 
 --
+-- Tablo için AUTO_INCREMENT değeri `bayi`
+--
+ALTER TABLE `bayi`
+  MODIFY `bayi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+
+--
+-- Tablo için AUTO_INCREMENT değeri `depo`
+--
+ALTER TABLE `depo`
+  MODIFY `depo_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- Tablo için AUTO_INCREMENT değeri `kullanici`
 --
 ALTER TABLE `kullanici`
-  MODIFY `musteri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `musteri_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- Tablo için AUTO_INCREMENT değeri `satilan_urun`
@@ -736,17 +757,11 @@ ALTER TABLE `satilan_urun`
 -- Tablo için AUTO_INCREMENT değeri `telefon`
 --
 ALTER TABLE `telefon`
-  MODIFY `telefon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `telefon_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Dökümü yapılmış tablolar için kısıtlamalar
 --
-
---
--- Tablo kısıtlamaları `bayi`
---
-ALTER TABLE `bayi`
-  ADD CONSTRAINT `bayi_ibfk_1` FOREIGN KEY (`bayi_id`) REFERENCES `telefon` (`telefon_id`);
 
 --
 -- Tablo kısıtlamaları `bayi_stok`
