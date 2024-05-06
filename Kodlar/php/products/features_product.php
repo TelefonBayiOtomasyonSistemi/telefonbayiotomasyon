@@ -1,7 +1,12 @@
 <?php
-include ("../navbar/navbar.php");
+$id = $_GET['id'];
+if (!empty($id)) {
+    include '../navbar/navbar_login.php';
+} else {
+    include ('../navbar/navbar.php');
+}
 include ("../contact/contact.php");
-$phoneID = $_GET['id'];
+$phoneID = $_GET['telefon_id'];
 $query_resim = mysqli_query($connection, 'select * from resimler where id="' . $phoneID . '"');
 $resim_row = mysqli_fetch_array($query_resim);
 $resim1 = $resim_row['resim1'];

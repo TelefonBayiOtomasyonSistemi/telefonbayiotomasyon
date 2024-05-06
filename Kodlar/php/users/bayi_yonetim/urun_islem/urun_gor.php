@@ -11,7 +11,9 @@
 <body>
   <div id="container">
     <div id="left_container">
-      <?php include("../bayi_left_bar.php"); ?>
+      <?php 
+      $id=$_GET['id'];
+      include("../bayi_left_bar.php"); ?>
     </div>
 
     <?php include("../../../contact/take_all_data.php"); ?>

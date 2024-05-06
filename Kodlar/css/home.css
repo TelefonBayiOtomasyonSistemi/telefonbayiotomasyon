@@ -10,7 +10,7 @@
 }
 #banner_div{
     width: 70%;
-    height: 1000px;
+    height: 700px;
     border: 1px solid black;
     margin: auto;
     margin-top: 100px;
@@ -84,4 +84,8 @@
     .card {
         width: calc(100% - 20px); /* Kartlar tek sıra halinde sığacak şekilde */
     }
+}
+#banner_img{
+    height: 100%;
+    width: 100%;
 }
