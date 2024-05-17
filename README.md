@@ -1,2 +1,4 @@
-..
-Telefon Bayi Otomasyon Sistemi
+                                                  TELEFON BAYİ OTOMASYON SİSTEMİ
+
+
+  Bu proje, bir internet sitesi oluşturmayı hedeflemektedir. Bir telefon satış platformunun tasarım ve gelişim sürecini ele almaktadır. İnternet sitesi, kullanıcıların telefonları marka, model ve özelliklerine göre aratmasına ve sipariş vermesine olanak tanır. Aynı zamanda üyelik sistemi ile kullanıcılar üye olabilir, üyelik bilgilerini güncelleyebilir ve siparişlerini takip edebilmektedir. Bayiler ise ürünlerini görüntüleyebilir, ekleyebilir ve silebilir; satılan ürünleri görüntüleyebilir ve bayi bilgilerini güncelleyebilir. Her bayinin kullandığı bir depo vardır. Bayiler depolardaki stoklarından ürünleri bayi stoklarına ekleyebilir. Bu projenin amacı, telefonların veritabanını oluşturarak telefon bilgilerini yönetmek, kullanıcıların kolay ve rahat bir deneyim yaşamasını sağlamak ve telefon bayisinin siparişleri yönetmesini sağlamaktır.
